@@ -1,6 +1,6 @@
 esphome:
-  name: narvarosensor-kok
-  friendly_name: Närvarosensor Kök
+  name: narvarosensor-vardagsrum
+  friendly_name: Närvarosensor Vardagsrum
   comment: ESP32-S2 + LD2410 radar
   platformio_options:
     board_build.flash_mode: dio
@@ -13,10 +13,11 @@ esp32:
   framework:
     type: arduino
 
-
 improv_serial:
 
 logger:
+  hardware_uart: uart0
+
 # Enable Home Assistant API
 api:
   encryption:
@@ -31,7 +32,7 @@ wifi:
   fast_connect: True
   power_save_mode: LIGHT
   manual_ip:
-    static_ip: 192.168.10.143
+    static_ip: 192.168.10.141
     gateway: 192.168.10.1
     subnet: 255.255.255.0
   # Enable fallback hotspot (captive portal) in case wifi connection fails
@@ -183,3 +184,27 @@ number:
         name: g8 move threshold
       still_threshold:
         name: g8 still threshold
+
+
+light: 
+  - platform: status_led
+    name: "Blue status LED"
+    id: blue_status_led
+    pin: GPIO15
+
+# Blink the blue light if we aren't connected to WiFi. Could use https://esphome.io/components/status_led.html instead but then we couldn't use the blue light for other things as well.
+# Only if not connected after 30s
+interval:
+  - interval: 2000ms
+    then:
+      - if:
+          condition:
+            for:
+              time: 30s
+              condition:
+                not:
+                  wifi.connected:
+          then:
+            - light.turn_on:
+                id: blue_status_led
+                brightness: 100%

@@ -1,0 +1,55 @@
+substitutions:
+  devicename: sinilink-led-controller
+  devicename_upper: Sinilink Led Controller
+
+esphome:
+  name: $devicename
+  friendly_name: ${devicename_upper}
+  comment: "Sinilink XY-WFMS ESP8266 Wifi Mosefet"
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "J1itxZlmFi3wZbc4EmoKu27KKL7PWWjYuipZfe9OFPg="
+
+ota:
+  password: "8ec9afd87ad58fbb61eda7c5a93fce95"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap: {}
+
+captive_portal:
+
+web_server:
+
+# Button
+binary_sensor:
+  - platform: gpio
+    id: button
+    pin:
+      number: GPIO12
+      mode: INPUT_PULLUP
+      inverted: True
+    on_press:
+      - light.toggle: LED_output
+
+output:
+  - platform: esp8266_pwm
+    id: LED
+    pin: GPIO4
+
+light:
+  - platform: monochromatic
+    name: "LED"
+    output: LED
+    id: LED_output

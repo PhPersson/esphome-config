@@ -1,0 +1,43 @@
+substitutions:
+  device_name: led-strip-controller
+  device_description: LED Strip Controller.
+
+
+esphome:
+  name: ${device_name}
+  friendly_name: LED Controller
+  comment: MagicHome-ZJ-WFMN-C-Single Color LED Controller
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "QaIMTCBrNY8DO/E0kg0OLBwnR/qbH74oU8rIz31ktAs="
+
+ota:
+  password: "49c1b653f221d4e5ca2c872e818b20a7"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap: {}
+
+captive_portal:
+
+
+output:
+  - platform: esp8266_pwm
+    id: LED
+    pin: GPIO12
+
+light:
+  - platform: monochromatic
+    name: "LED"
+    output: LED

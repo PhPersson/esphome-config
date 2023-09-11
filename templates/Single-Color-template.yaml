@@ -23,14 +23,13 @@ api:
 ota:
 
 wifi:
-
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap: {}
 
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/Single-Color-template.yaml
+  package_import_url: github://PhPersson/ESPHome-Config/templates/Single-Color-template.yaml
 output:
   - platform: esp8266_pwm
     id: LED

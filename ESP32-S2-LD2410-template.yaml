@@ -36,7 +36,9 @@ wifi:
 
 captive_portal:
 web_server:
-
+dashboard_import:
+  package_import_url: github://PhPersson/ESPHome-Config/ESP32-S2-LD2410-template.yaml
+  
 ld2410:
 
 binary_sensor:

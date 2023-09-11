@@ -8,7 +8,7 @@ esphome:
   friendly_name: LED Controller
   comment: MagicHome-ZJ-WFMN-C-Single Color LED Controller
   project:
-    name: MagicHome.ZJ-WFMN-C-Single-led-controller
+    name: PhPersson.Single-led-controller
     version: "1.0"
 
 esp8266:
@@ -29,7 +29,7 @@ wifi:
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/templates/Single-Color-template.yaml
+  package_import_url: github://PhPersson/ESPHome-Config/Single-Color-template.yaml
 output:
   - platform: esp8266_pwm
     id: LED

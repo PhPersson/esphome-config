@@ -30,7 +30,7 @@ wifi:
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: https://gist.githubusercontent.com/PhPersson/3e7acd8c5a5a816ea6af44cbfa8e499b/raw/4274ee6d1749721b1e8c7c2913aa90e553a3c0b7/MagicHome-ZJ-WFMN-C-Single-Color-template.yaml
+  package_import_url: github://PhPersson/ESPHome-Config/Single-Color-template.yaml
 output:
   - platform: esp8266_pwm
     id: LED

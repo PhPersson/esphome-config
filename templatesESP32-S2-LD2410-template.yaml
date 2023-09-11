@@ -38,7 +38,7 @@ captive_portal:
 # This can be disabled afterwards
 web_server:
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/templates/ESP32-S2-LD2410-template.yaml
+  package_import_url: github://PhPersson/ESPHome-Config//ESP32-S2-LD2410-template.yaml
   
 ld2410:
 

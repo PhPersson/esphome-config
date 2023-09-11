@@ -21,13 +21,9 @@ logger:
 
 # Enable Home Assistant API
 api:
-  encryption:
-    key: "XXXX"
-
-# mqtt:
 
 ota:
-  password: "XXXX"
+
 
 wifi:
   ssid: !secret wifi_ssid
@@ -182,27 +178,3 @@ number:
         name: g8 move threshold
       still_threshold:
         name: g8 still threshold
-
-
-light: 
-  - platform: status_led
-    name: "Blue status LED"
-    id: blue_status_led
-    pin: GPIO15
-
-# Blink the blue light if we aren't connected to WiFi. Could use https://esphome.io/components/status_led.html instead but then we couldn't use the blue light for other things as well.
-# Only if not connected after 30s
-interval:
-  - interval: 2000ms
-    then:
-      - if:
-          condition:
-            for:
-              time: 30s
-              condition:
-                not:
-                  wifi.connected:
-          then:
-            - light.turn_on:
-                id: blue_status_led
-                brightness: 100%

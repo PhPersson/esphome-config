@@ -1,5 +1,5 @@
 substitutions:
-  devicename: "blitzwolf-bw-shp2-plug"
+  devicename: blitzwolf-bw-shp2-plug
   devicename_id: blitzwolf_bw_shp2_plug
   friendly_name: BlitzWolf BW-SHP2 Plug
   device_description: BlitzWolf BW-SHP2 Power Monitoring Plug.

@@ -1,4 +1,10 @@
-
+substitutions:
+  devicename: blitzwolf-bw-shp2-plug
+  devicename_id: blitzwolf_bw_shp2_plug
+  friendly_name: BlitzWolf BW-SHP2 Plug
+  device_description: BlitzWolf BW-SHP2 Power Monitoring Plug.
+  current_res: "0.00221" # Random value. Requires power monitoring calibration
+  voltage_div: "955" # Random value. Requires power monitoring calibration
 # Enable time component for use by daily power sensor
 time:
   - platform: homeassistant

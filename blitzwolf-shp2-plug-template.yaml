@@ -32,7 +32,7 @@ ota:
 
 # This should point to the public location of this yaml file.
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/blitzwolf-bw-shp2-plug-template.yaml@main
+  package_import_url: github://PhPersson/ESPHome-Config/blitzwolf-shp2-plug-template.yaml@main
   import_full_config: True
 
 wifi:

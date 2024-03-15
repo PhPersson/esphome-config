@@ -1,0 +1,47 @@
+substitutions:
+  devicename: led-controller
+  upper_devicename: "Ledkontroller"
+
+esphome:
+  name: $devicename
+  friendly_name: $upper_devicename
+  comment: Tuya-generic-ih001-led-controller
+
+
+bk72xx:
+  board: generic-bk7231n-qfn32-tuya
+
+logger:
+web_server:
+captive_portal:
+mdns:
+api:
+ota:
+
+wifi:
+  ap:
+
+button:
+  - platform: restart
+    name: Restart
+
+debug:
+  update_interval: 30s
+
+output:
+  - platform: libretiny_pwm
+    id: output_cold
+    pin: P7
+
+light:
+  - platform: monochromatic
+    id: light_monochromatic
+    name: Light
+    output: output_cold
+
+remote_receiver:
+  pin:
+    number: P14
+    inverted: true
+    mode: INPUT_PULLUP
+  # dump: all

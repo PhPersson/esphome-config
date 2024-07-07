@@ -12,6 +12,9 @@ esphome:
     board_build.flash_mode: dio
     board_build.f_cpu: 80000000L
   name_add_mac_suffix: false
+  project:
+    name: PhPersson.esp32-precense
+    version: "1.0"
 
 wifi:
   power_save_mode: LIGHT
@@ -28,6 +31,9 @@ esp32:
   
 api:
 ota:
+  - platform: esphome
+dashboard_import:
+  package_import_url: github://PhPersson/ESPHome-Config/esp32-c3-ld2410.yaml
 
 
 logger:

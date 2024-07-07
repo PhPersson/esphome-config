@@ -3,7 +3,7 @@ esphome:
   friendly_name: Pipe Temperature Sensor
   comment: Wemos D1 mini with DS18B20
   project:
-    name: PhPersson.Pipe_temperature_sensor
+    name: PhPersson.pipe-temperature-sensor
     version: "1.0"
 
 esp8266:
@@ -18,7 +18,7 @@ ota:
   platform: esphome
 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/Pipe_temperature_sensor.yaml
+  package_import_url: github://PhPersson/ESPHome-Config/pipe-temperature-sensor.yaml
 
 wifi:
   ssid: !secret wifi_ssid

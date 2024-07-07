@@ -1,14 +1,14 @@
 substitutions:
   device_name: led-strip-controller
-  device_description: LED Strip Controller.
+  device_description: LED Strip Controller
 
 
 esphome:
   name: ${device_name}
   friendly_name: LED Controller
-  comment: MagicHome-ZJ-WFMN-C-Single Color LED Controller
+  comment: Single Color LED Controller
   project:
-    name: PhPersson.Single-led-controller
+    name: PhPersson.led-strip-controller
     version: "1.0"
 
 esp8266:
@@ -21,6 +21,7 @@ logger:
 api:
 
 ota:
+  platfrom: esphome
 
 wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
@@ -29,7 +30,7 @@ wifi:
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/Single-Color-template.yaml
+  package_import_url: github://PhPersson/ESPHome-Config/led-strip-controller.yaml
 output:
   - platform: esp8266_pwm
     id: LED

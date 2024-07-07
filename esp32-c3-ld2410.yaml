@@ -33,7 +33,7 @@ api:
 ota:
   - platform: esphome
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/esp32-c3-ld2410.yaml
+  package_import_url: github://PhPersson/esphome-config/esp32-c3-ld2410.yaml
 
 
 logger:

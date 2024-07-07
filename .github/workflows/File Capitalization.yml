@@ -1,0 +1,25 @@
+name: Check File Capitalization
+
+on:
+  push: {}
+
+jobs:
+  check-capitalization:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check filenames
+        run: |
+          error=false
+          for filename in $(git ls-files); do
+            if [[ ${filename:0:1} != "$(tr '[:upper:]' '[:lower:]' <<<"${filename:0:1}")" ]]; then
+              echo "Error: File '$filename' does not start with a capital letter."
+              error=true
+            fi
+          done
+          if [ "$error" = true ]; then
+            exit 1
+          fi
+

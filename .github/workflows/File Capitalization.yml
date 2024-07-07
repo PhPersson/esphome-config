@@ -15,8 +15,12 @@ jobs:
           error=false
           for filename in $(git ls-files); do
             if [[ ${filename:0:1} != "$(tr '[:upper:]' '[:lower:]' <<<"${filename:0:1}")" ]]; then
-              echo "Error: File '$filename' does not start with a capital letter."
-              error=true
+              if [[ "$filename" =~ ^[A-Z][a-z0-9_-]+ ]]; then
+                # Valid filename with capital first letter
+              else
+                echo "Error: File '$filename' does not start with a valid capital letter."
+                error=true
+              fi
             fi
           done
           if [ "$error" = true ]; then

@@ -18,7 +18,7 @@ ota:
   platform: esphome
 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/pipe-temperature-sensor.yaml
+  package_import_url: github://PhPersson/esphome-config/pipe-temperature-sensor.yaml
 
 wifi:
   ssid: !secret wifi_ssid

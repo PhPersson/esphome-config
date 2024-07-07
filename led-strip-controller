@@ -30,7 +30,7 @@ wifi:
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: github://PhPersson/ESPHome-Config/led-strip-controller.yaml
+  package_import_url: github://PhPersson/esphome-config/led-strip-controller.yaml
 output:
   - platform: esp8266_pwm
     id: LED

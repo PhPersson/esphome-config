@@ -21,7 +21,7 @@ logger:
 api:
 
 ota:
-  platfrom: esphome
+  platform: esphome
 
 wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails

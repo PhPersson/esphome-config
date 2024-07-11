@@ -8,7 +8,7 @@ esphome:
   friendly_name: LED Controller
   comment: Single Color LED Controller
   project:
-    name: PhPersson.led-strip-controller
+    name: PhPersson.led-controller
     version: "1.0"
 
 esp8266:
@@ -30,7 +30,7 @@ wifi:
 captive_portal:
 web_server: 
 dashboard_import:
-  package_import_url: github://PhPersson/esphome-config/led-strip-controller.yaml
+  package_import_url: github://PhPersson/esphome-config/led-controller.yaml
 output:
   - platform: esp8266_pwm
     id: LED

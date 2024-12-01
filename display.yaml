@@ -1,0 +1,167 @@
+substitutions:
+  device_name: display
+  friendly_name: Display
+  font_size_icons: "20"
+
+esphome:
+  name: $device_name
+  friendly_name: $friendly_name
+  project:
+    name: PhPersson.display
+    version: "1.0"
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+
+dashboard_import:
+  package_import_url: github://PhPersson/esphome-config/display.yaml@main
+  import_full_config: True
+
+logger:
+api:
+ota:
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+captive_portal:
+web_server:
+
+# Fonts for display
+font:
+  - file: "fonts/materialdesignicons-webfont.ttf"
+    id: icon_font
+    size: ${font_size_icons}
+    glyphs: [
+        "󰖖", #rain
+        "󱉸", #percent
+        "󰔏" #temp
+    ]
+  - file: 'fonts/Arimo-Regular.ttf'
+    id: the_font
+    size: 24
+    glyphs: "!\"%()+=,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ abcdefghijklmnopqrstuvwxyzåäö"
+
+# Light and LED setup
+light:
+  - platform: monochromatic
+    output: backlight_pwm
+    name: Display Backlight
+    id: backlight
+    restore_mode: ALWAYS_ON
+  - platform: rgb
+    name: LED
+    id: led
+    red: output_red
+    green: output_green
+    blue: output_blue
+    restore_mode: ALWAYS_OFF
+
+# SPI setup for display and touch
+spi:
+  - id: tft
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+
+output:
+  - platform: ledc
+    pin: GPIO21
+    id: backlight_pwm
+  - platform: ledc
+    id: output_red
+    pin: GPIO4
+    inverted: true
+  - platform: ledc
+    id: output_green
+    pin: GPIO16
+    inverted: true
+  - platform: ledc
+    id: output_blue
+    pin: GPIO17
+    inverted: true
+    
+color:
+  - id: red
+    red: 100%
+    green: 0%
+    blue: 0%
+    
+# ESP32-2432S028R TFT Display setup (ili9342)
+display:
+  - platform: ili9xxx
+    id: esp_display
+    model: ili9342
+    spi_id: tft
+    cs_pin: GPIO15
+    dc_pin: GPIO2
+    invert_colors: false
+    rotation: 180
+    lambda: |-
+      it.fill(id(Color::BLACK));  // Fyll skärmen med svart bakgrund
+
+      // Temperatur ute
+      if (id(kronholmsgrand_temperatur).has_state()) {
+        it.print(10, 20, id(icon_font), "󰔏");  // Glyph för temperatur
+        it.print(50, 20, id(the_font), "Ute:");
+        it.printf(200, 20, id(the_font), "%.1f °C", id(kronholmsgrand_temperatur).state);
+      } else {
+        it.print(10, 20, id(icon_font), "󰔏");  // Glyph för temperatur
+        it.print(50, 20, id(the_font), "Ute: -- °C");
+      }
+
+      // Luftfuktighet ute
+      if (id(kronholmsgrand_luftfuktighet).has_state()) {
+        it.print(10, 60, id(icon_font), "󱉸");  // Glyph för luftfuktighet
+        it.print(50, 60, id(the_font), "Luftfuktighet:");
+        it.printf(200, 60, id(the_font), "%.0f %%", id(kronholmsgrand_luftfuktighet).state);
+      } else {
+        it.print(10, 60, id(icon_font), "󱉸");  // Glyph för luftfuktighet
+        it.print(50, 60, id(the_font), "Luftfuktighet: -- %");
+      }
+
+      // Regn idag
+      if (id(kronholmsgrand_nederbord_idag).has_state()) {
+        it.print(10, 100, id(icon_font), "󰖖");  // Glyph för regn
+        it.print(50, 100, id(the_font), "Regn:");
+        it.printf(200, 100, id(the_font), "%.1f mm", id(kronholmsgrand_nederbord_idag).state);
+      } else {
+        it.print(10, 100, id(icon_font), "󰖖");  // Glyph för regn
+        it.print(50, 100, id(the_font), "Regn: -- mm");
+      }
+
+      // Temperatur inne
+      if (id(snitt_temp_inne).has_state()) {
+        it.print(10, 140, id(icon_font), "󰔏");  // Glyph för temperatur
+        it.print(50, 140, id(the_font), "Inomhus:");
+        it.printf(200, 140, id(the_font), "%.1f °C", id(snitt_temp_inne).state);
+      } else {
+        it.print(10, 140, id(icon_font), "󰔏");  // Glyph för temperatur
+        it.print(50, 140, id(the_font), "Inomhus: -- °C");
+      }
+
+
+sensor:
+  - platform: homeassistant
+    id: kronholmsgrand_temperatur
+    entity_id: sensor.kronholmsgrand_temperatur
+    name: "Temperatur Ute"
+
+  - platform: homeassistant
+    id: kronholmsgrand_luftfuktighet
+    entity_id: sensor.kronholmsgrand_luftfuktighet
+    name: "Luftfuktighet Ute"
+
+  - platform: homeassistant
+    id: kronholmsgrand_nederbord_idag
+    entity_id: sensor.kronholmsgrand_nederbord_idag
+    name: "Regn Idag"
+
+  - platform: homeassistant
+    id: snitt_temp_inne
+    entity_id: sensor.snitt_temp_inne
+    name: "Temperatur Inne"

@@ -1,0 +1,38 @@
+esphome:
+  name: rortemperatur
+  friendly_name: Rörtemperatur
+  project: 
+    name: PhPersson.temp
+    version: "0.1.0"
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+dashboard_import:
+  package_import_url: github://PhPersson/esphome-config/temp.yaml
+captive_portal:
+web_server:
+  version: 3
+
+one_wire:
+  - platform: gpio
+    pin: D2
+
+sensor:
+  - platform: dallas_temp
+    address: 0xc56431cd1e64ff28
+    name: Rörtemperatur
